@@ -1,11 +1,7 @@
 {
   "autoload": {
     "psr-4": {
-      "Acme\\": "app/"
-    },
-    "classmap": [
-      "app/controllers/",
-      "app/libs/"
-    ]
+      "Acme\\":"src/"
+    }
   }
 }

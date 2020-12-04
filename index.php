@@ -1,22 +1,28 @@
 <?php
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+use app\controllers\UserController;
+use app\libs\AppConfig;
+use app\repositories\UserRepository;
 
-require_once 'config/config.php';
+require_once 'autoload.php';
 
-function autoloadLib($class)
-{
-    $class = str_replace("\\", DIRECTORY_SEPARATOR, $class);
-    if (is_readable('libs/' . $class . ".php")) {
-        require_once('libs/' . $class . '.php');
-    }
+$db_connection = new AppConfig();
+$user_repository = new UserRepository($db_connection->getDataSource());
+
+$url = (isset($_GET['url'])) ? $_GET['url'] : null;
+$url = getUrl($url);
+
+//$url[0] control
+if ($url[0] == 'all') {
+	$user = new UserController($user_repository);
+	$user->all();
+} elseif ($url[0] == 'add') {
+	$user = new UserController($user_repository);
+	$user->insert();
+} else {
+	die('Not found');
 }
-spl_autoload_register("autoloadLib");
 
 
-$boot = new Route();
-$boot->split();
 
 
-?>

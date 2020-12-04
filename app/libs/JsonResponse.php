@@ -1,4 +1,5 @@
 <?php
+namespace app\libs;
 
 class JsonResponse
 {
